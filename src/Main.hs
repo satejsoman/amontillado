@@ -52,7 +52,7 @@ runSmokeTest path = do
     putStrLn ("This is what the state of the in-memory tree looks like after 4 writes: \n" ++ show (memTable lsmTree4))
     print (memTable lsmTree3)
 
-    putStrLn "The new on-disk table (new" ++ path ++ ") has the new writes appended."
+    putStrLn ("The new on-disk table (new" ++ path ++ ") has the new writes appended.")
 
     return ()
     
