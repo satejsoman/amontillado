@@ -3,7 +3,7 @@
 [Amontillado](https://en.wikipedia.org/wiki/The_Cask_of_Amontillado) is a simple key-value store, backed by filtered log-structured merge trees, implemented in Haskell. Modelled after DynamoDB/Cassandra (C*)/Riak.
 
 ## how to run the sample application 
-1. in `src/`, `cp` the `ref_sstable.csv` to `sstable.csv`
+1. in `src/`, `cp` the `ref_sstable.csv` file to `sstable.csv`
 2. run `runghc Main.hs --data sstable.csv`
 3. hit enter to continue at each step
 4. in-memory structures are compacted to `newsstable.csv`
