@@ -4,7 +4,7 @@
 
 ## how to run the sample application 
 1. in `src/`, `cp` the `ref_sstable.csv` to `sstable.csv` (the database makes changes to the file passed in on the command line)
-2. run `runghc src/Main.hs --data sstable.csv`
+2. run `runghc Main.hs --data sstable.csv`
 3. hit enter to continue at each step
 4. in-memory structures are compacted to `newsstable.csv`
 
