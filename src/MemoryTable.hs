@@ -18,7 +18,7 @@ data Color = Red | Black deriving (Eq, Show)
 
 data MemoryTable a = KVNode { entry  :: a, lChild :: MemoryTable a,  rChild :: MemoryTable a, color :: Color } 
                    | Empty 
-                   deriving (Eq, Show)
+                   deriving (Eq)
 
 -- search Tree for key
 search :: Key -> MemoryTable Entry -> Maybe Value
@@ -57,6 +57,21 @@ merge tree Empty = tree
 merge Empty tree = tree 
 merge (KVNode kv left right _) tree = insert (entry right) (insert kv (insert (entry left) tree))
 
+-- sigil for printing nodes
+sigil :: Color -> String
+sigil Black = "\x1b[30m ● \x1b[0m"
+sigil Red   = "\x1b[31m ● \x1b[0m"
+
+-- sigil for printing nodes
+coloredParens :: Color -> (String, String)
+coloredParens Black = ("\x1b[30m(\x1b[0m", "\x1b[30m)\x1b[0m")
+coloredParens Red   = ("\x1b[31m(\x1b[0m", "\x1b[31m)\x1b[0m")
+
+instance (Show a) => Show (MemoryTable a) where 
+    show Empty = "-"
+    show (KVNode entry lChild rChild color) = lParen ++ show entry ++ " " ++ show lChild ++ " " ++ show rChild ++ rParen where 
+        (lParen, rParen) = coloredParens color
+
 instance (Show a, Ord a) => Semigroup (MemoryTable a) where 
     (<>) = merge
 instance (Show a, Ord a) => Monoid (MemoryTable a) where 
@@ -68,17 +83,17 @@ instance Foldable MemoryTable where
 
 main :: IO ()
 main = do
-    putStrLn "initial tree"
+    putStrLn "initial tree: "
     let tree  = insert (Entry (Key "z") (Value 0) 0) Empty
     print tree
     let tree2 = insert (Entry (Key "a") (Value 1) 0) tree
     print tree2
     let tree3 = insert (Entry (Key "bob") (Value 1000) 0) tree2
     print tree3
+    let tree4 = insert (Entry (Key "foo") (Value 10) 0) tree3
+    print tree4
+    let tree5 = insert (Entry (Key "bar") (Value 11) 0) tree4
+    print tree5
 
-    let lst = toList tree3
-    print (lst !! 0)
-    print (lst !! 1)
-    print (lst !! 2)
-
-    return ()
+    putStrLn "\nprint each element of the final tree: "
+    sequence_ [putStrLn (" - " ++ show each) | each <- toList tree5]

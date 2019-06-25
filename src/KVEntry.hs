@@ -21,7 +21,7 @@ type Timestamp = Int
 data Entry = Entry Key Value Timestamp deriving (Eq)
 
 instance Show Entry where 
-    show (Entry (Key k) (Value v) _) = k ++ "," ++ show v
+    show (Entry (Key k) (Value v) _) = "[" ++ k ++ ": " ++ show v ++ "]"
 
 instance Ord Entry where 
     (<=) (Entry k1 _ _) (Entry k2 _ _) = (<=) k1 k2
