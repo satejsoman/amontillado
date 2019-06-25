@@ -57,12 +57,7 @@ merge tree Empty = tree
 merge Empty tree = tree 
 merge (KVNode kv left right _) tree = insert (entry right) (insert kv (insert (entry left) tree))
 
--- sigil for printing nodes
-sigil :: Color -> String
-sigil Black = "\x1b[30m ● \x1b[0m"
-sigil Red   = "\x1b[31m ● \x1b[0m"
-
--- sigil for printing nodes
+-- color representation of nodes based on color bit 
 coloredParens :: Color -> (String, String)
 coloredParens Black = ("\x1b[30m(\x1b[0m", "\x1b[30m)\x1b[0m")
 coloredParens Red   = ("\x1b[31m(\x1b[0m", "\x1b[31m)\x1b[0m")
